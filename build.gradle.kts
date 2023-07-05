@@ -29,6 +29,7 @@ dependencies {
 
 
     implementation("org.postgresql:r2dbc-postgresql")
+    implementation("org.flywaydb:flyway-core")
     implementation("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 

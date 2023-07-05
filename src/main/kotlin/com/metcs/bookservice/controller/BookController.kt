@@ -2,7 +2,6 @@ package com.metcs.bookservice.controller
 
 import com.metcs.bookservice.domain.model.Book
 import com.metcs.bookservice.service.BookService
-import kotlinx.coroutines.flow.Flow
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -11,7 +10,7 @@ class BookController (
     private val bookService:BookService
 ){
     @GetMapping("")
-    suspend fun getAll():Flow<Book>{
+    suspend fun getAll():List<Book>{
         return bookService.getAll();
     }
     @PostMapping("")

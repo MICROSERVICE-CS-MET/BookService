@@ -12,6 +12,5 @@ data class Book(
     var category: String,
     var pageCount: Int,
     var stock: Int,
-    var isActive:Boolean,
     var price:Double
 )
