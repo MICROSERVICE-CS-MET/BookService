@@ -1,20 +1,27 @@
 package com.metcs.bookservice.controller
 
-import com.metcs.bookservice.domain.model.Book
+import com.metcs.bookservice.domain.dto.request.CreateBookRequest
+import com.metcs.bookservice.domain.dto.response.BookResponse
+import com.metcs.bookservice.domain.mapper.BookMapper
 import com.metcs.bookservice.service.BookService
+import org.mapstruct.factory.Mappers
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/books")
 class BookController (
-    private val bookService:BookService
+    private val bookService:BookService,
 ){
+
     @GetMapping("")
-    suspend fun getAll():List<Book>{
-        return bookService.getAll();
+    suspend fun getAll():List<BookResponse>{
+        val converter=Mappers.getMapper(BookMapper::class.java)
+        return converter.booksToBookResponse(bookService.getAll());
     }
     @PostMapping("")
-    suspend fun save(@RequestBody book:Book):Book{
-        return bookService.save(book);
+    suspend fun save(@RequestBody bookRequest:CreateBookRequest):BookResponse{
+        val converter=Mappers.getMapper(BookMapper::class.java)
+        val retrivedBook=bookService.save(converter.createRequestToBook(bookRequest));
+        return converter.bookToBookResponse(retrivedBook)
     }
 }
