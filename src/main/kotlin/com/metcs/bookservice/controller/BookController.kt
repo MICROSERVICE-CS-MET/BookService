@@ -21,7 +21,7 @@ class BookController (
     @PostMapping("")
     suspend fun save(@RequestBody bookRequest:CreateBookRequest):BookResponse{
         val converter=Mappers.getMapper(BookMapper::class.java)
-        val retrivedBook=bookService.save(converter.createRequestToBook(bookRequest));
-        return converter.bookToBookResponse(retrivedBook)
+        val savedBook=bookService.save(converter.createRequestToBook(bookRequest));
+        return converter.bookToBookResponse(savedBook)
     }
 }
