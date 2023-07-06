@@ -21,6 +21,13 @@ class BookController(
         val converter = Mappers.getMapper(BookMapper::class.java)
         return converter.booksToBookResponse(bookService.getAll())
     }
+    @GetMapping("/{id}")
+    suspend fun getById(@PathVariable("id") id : UUID):BookResponse{
+        val converter = Mappers.getMapper(BookMapper::class.java)
+        val book=bookService.getById(id)
+        return converter.bookToBookResponse(book)
+
+    }
 
     @PostMapping("")
     suspend fun save(@RequestBody bookRequest: CreateBookRequest): BookResponse {
