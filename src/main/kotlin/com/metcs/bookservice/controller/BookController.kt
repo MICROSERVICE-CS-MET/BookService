@@ -1,6 +1,7 @@
 package com.metcs.bookservice.controller
 
 import com.metcs.bookservice.domain.dto.request.CreateBookRequest
+import com.metcs.bookservice.domain.dto.request.UpdateBookRequest
 import com.metcs.bookservice.domain.dto.response.BookResponse
 import com.metcs.bookservice.domain.mapper.BookMapper
 import com.metcs.bookservice.service.BookService
@@ -31,5 +32,13 @@ class BookController(
     suspend fun delete(@PathVariable("id")id:UUID):ResponseEntity<String>{
         bookService.delete(id)
         return ResponseEntity.ok("Book Deleted!")
+    }
+
+    @PatchMapping("")
+    suspend fun update(@RequestBody updateBookRequest: UpdateBookRequest): BookResponse{
+        val converter = Mappers.getMapper(BookMapper::class.java)
+        val updatedBook = bookService.update(converter.updateBookRequestToBook(updateBookRequest))
+        return converter.bookToBookResponse(updatedBook)
+
     }
 }

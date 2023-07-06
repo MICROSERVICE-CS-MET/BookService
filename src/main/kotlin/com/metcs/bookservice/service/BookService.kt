@@ -21,4 +21,7 @@ class BookService(
     suspend fun delete(id:UUID){
         bookRepository.deleteById(id)
     }
+    suspend fun update(book: Book): Book{
+        return bookRepository.save(book)
+    }
 }
