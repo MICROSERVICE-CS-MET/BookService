@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class ExceptionUtil {
-    public fun getFullUri(request: HttpServletRequest): String {
+    fun getFullUri(request: HttpServletRequest): String {
         val scheme = request.scheme
         val serverName = request.serverName
         val serverPort = request.serverPort

@@ -9,19 +9,20 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/books")
-class BookController (
-    private val bookService:BookService,
-){
+class BookController(
+    private val bookService: BookService,
+) {
 
     @GetMapping("")
-    suspend fun getAll():List<BookResponse>{
-        val converter=Mappers.getMapper(BookMapper::class.java)
-        return converter.booksToBookResponse(bookService.getAll());
+    suspend fun getAll(): List<BookResponse> {
+        val converter = Mappers.getMapper(BookMapper::class.java)
+        return converter.booksToBookResponse(bookService.getAll())
     }
+
     @PostMapping("")
-    suspend fun save(@RequestBody bookRequest:CreateBookRequest):BookResponse{
-        val converter=Mappers.getMapper(BookMapper::class.java)
-        val savedBook=bookService.save(converter.createRequestToBook(bookRequest));
+    suspend fun save(@RequestBody bookRequest: CreateBookRequest): BookResponse {
+        val converter = Mappers.getMapper(BookMapper::class.java)
+        val savedBook = bookService.save(converter.createRequestToBook(bookRequest))
         return converter.bookToBookResponse(savedBook)
     }
 }

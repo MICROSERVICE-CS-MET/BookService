@@ -6,14 +6,15 @@ import kotlinx.coroutines.flow.toList
 import org.springframework.stereotype.Service
 
 @Service
-class BookService (
-    private val bookRepository:BookRepository
-    ){
-    suspend fun getAll():List<Book>{
-        val books=bookRepository.findAll().toList();
-        return books;
+class BookService(
+    private val bookRepository: BookRepository
+) {
+    suspend fun getAll(): List<Book> {
+        return bookRepository.findAll().toList()
+
     }
-    suspend fun save(book: Book):Book{
-        return  bookRepository.save(book);
+
+    suspend fun save(book: Book): Book {
+        return bookRepository.save(book)
     }
 }
