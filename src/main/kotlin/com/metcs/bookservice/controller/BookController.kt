@@ -3,30 +3,42 @@ package com.metcs.bookservice.controller
 import com.metcs.bookservice.domain.dto.request.CreateBookRequest
 import com.metcs.bookservice.domain.dto.request.UpdateBookRequest
 import com.metcs.bookservice.domain.dto.response.BookResponse
+import com.metcs.bookservice.domain.dto.response.PaginatedResponse
 import com.metcs.bookservice.domain.mapper.BookMapper
-import org.mapstruct.factory.Mappers
 import com.metcs.bookservice.service.BookService
+import org.mapstruct.factory.Mappers
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
-import java.util.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
+import java.util.UUID
 
 @RestController
 @RequestMapping("/books")
 class BookController(
-    private val bookService: BookService,
+    private val bookService: BookService
 ) {
 
     @GetMapping("")
-    suspend fun getAll(): List<BookResponse> {
+    suspend fun getAll(
+        @RequestParam("page")page: Int,
+        @RequestParam("offset")offset: Int
+    ): PaginatedResponse<List<BookResponse>> {
         val converter = Mappers.getMapper(BookMapper::class.java)
-        return converter.booksToBookResponse(bookService.getAll())
+        return converter.paginatedBookToPaginatedBookResponse(bookService.getAll(page, offset))
     }
-    @GetMapping("/{id}")
-    suspend fun getById(@PathVariable("id") id : UUID):BookResponse{
-        val converter = Mappers.getMapper(BookMapper::class.java)
-        val book=bookService.getById(id)
-        return converter.bookToBookResponse(book)
 
+    @GetMapping("/{id}")
+    suspend fun findById(@PathVariable("id") id: UUID): BookResponse {
+        val converter = Mappers.getMapper(BookMapper::class.java)
+        val book = bookService.findById(id)
+        return converter.bookToBookResponse(book)
     }
 
     @PostMapping("")
@@ -35,17 +47,17 @@ class BookController(
         val savedBook = bookService.save(converter.createRequestToBook(bookRequest))
         return converter.bookToBookResponse(savedBook)
     }
+
     @DeleteMapping("/{id}")
-    suspend fun delete(@PathVariable("id")id:UUID):ResponseEntity<String>{
+    suspend fun delete(@PathVariable("id")id: UUID): ResponseEntity<String> {
         bookService.delete(id)
         return ResponseEntity.ok("Book Deleted!")
     }
 
     @PatchMapping("")
-    suspend fun update(@RequestBody updateBookRequest: UpdateBookRequest): BookResponse{
+    suspend fun update(@RequestBody updateBookRequest: UpdateBookRequest): BookResponse {
         val converter = Mappers.getMapper(BookMapper::class.java)
         val updatedBook = bookService.update(converter.updateBookRequestToBook(updateBookRequest))
         return converter.bookToBookResponse(updatedBook)
-
     }
 }

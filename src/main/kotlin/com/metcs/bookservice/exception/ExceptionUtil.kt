@@ -29,5 +29,4 @@ class ExceptionUtil {
 
         return builder.toString()
     }
-
 }

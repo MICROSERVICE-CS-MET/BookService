@@ -6,11 +6,11 @@ import java.util.*
 
 @Table
 data class Book(
-    @Id val id: UUID?=null,
-    var name:String,
-    var description:String,
+    @Id val id: UUID? = null,
+    var name: String,
+    var description: String,
     var category: String,
     var pageCount: Int,
     var stock: Int,
-    var price:Double
+    var price: Double
 )
