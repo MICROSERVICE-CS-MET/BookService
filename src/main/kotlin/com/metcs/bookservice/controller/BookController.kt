@@ -29,7 +29,7 @@ class BookController(
     suspend fun getAll(
         @RequestParam("page")page: Int,
         @RequestParam("offset")offset: Int
-    ): PaginatedResponse<List<BookResponse>> {
+    ): PaginatedResponse<BookResponse> {
         val converter = Mappers.getMapper(BookMapper::class.java)
         return converter.paginatedBookToPaginatedBookResponse(bookService.getAll(page, offset))
     }

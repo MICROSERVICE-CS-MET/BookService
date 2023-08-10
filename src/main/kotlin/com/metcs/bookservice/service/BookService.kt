@@ -13,7 +13,7 @@ import java.util.UUID
 class BookService(
     private val bookRepository: BookRepository
 ) {
-    suspend fun getAll(page: Int, offset: Int): PaginatedResponse<List<Book>> {
+    suspend fun getAll(page: Int, offset: Int): PaginatedResponse<Book> {
         return bookPaginate(page, bookRepository.findAllBy(PageRequest.of(page, offset)).toList(), offset)
     }
     suspend fun findById(id: UUID): Book {
@@ -29,7 +29,7 @@ class BookService(
     suspend fun update(book: Book): Book {
         return bookRepository.save(book)
     }
-    private suspend fun bookPaginate(currentPage: Int, books: List<Book>, offset: Int): PaginatedResponse<List<Book>> {
+    private suspend fun bookPaginate(currentPage: Int, books: List<Book>, offset: Int): PaginatedResponse<Book> {
         val bookList = books.toList()
         val pageCount = bookRepository.count() / offset
         return PaginatedResponse(currentPage, bookList.count(), pageCount, books)

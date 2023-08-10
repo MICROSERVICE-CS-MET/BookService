@@ -4,5 +4,5 @@ data class PaginatedResponse<T>(
     var currentPage: Int,
     var elementCount: Int,
     var pageCount: Long,
-    var data: T
+    var data: List<T>
 )

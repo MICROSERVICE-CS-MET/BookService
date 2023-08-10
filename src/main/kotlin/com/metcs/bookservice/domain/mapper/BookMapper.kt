@@ -13,6 +13,6 @@ interface BookMapper {
     fun createRequestToBook(bookDto: CreateBookRequest): Book
     fun bookToBookResponse(book: Book): BookResponse
     fun booksToBookResponse(books: List<Book>): List<BookResponse>
-    fun paginatedBookToPaginatedBookResponse(books: PaginatedResponse<List<Book>>): PaginatedResponse<List<BookResponse>>
+    fun paginatedBookToPaginatedBookResponse(books: PaginatedResponse<Book>): PaginatedResponse<BookResponse>
     fun updateBookRequestToBook(updateBookRequest: UpdateBookRequest): Book
 }
