@@ -4,10 +4,10 @@ import java.util.*
 
 data class BookResponse(
     val id: UUID,
-    var name:String,
-    var description:String,
+    var name: String,
+    var description: String,
     var category: String,
     var pageCount: Int,
     var stock: Int,
-    var price:Double
+    var price: Double
 )
