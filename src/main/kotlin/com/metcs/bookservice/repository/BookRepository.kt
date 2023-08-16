@@ -9,3 +9,4 @@ import java.util.UUID
 interface BookRepository : CoroutineCrudRepository<Book, UUID> {
     suspend fun findAllBy(pageable: Pageable): Flow<Book>
 }
+

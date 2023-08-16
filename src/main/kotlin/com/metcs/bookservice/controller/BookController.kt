@@ -35,6 +35,9 @@ class BookController(
     }
 
     @GetMapping("/{id}")
+    suspend fun getById(@PathVariable("id") id: UUID): BookResponse {
+        val converter = Mappers.getMapper(BookMapper::class.java)
+        val book = bookService.getById(id)
     suspend fun findById(@PathVariable("id") id: UUID): BookResponse {
         val converter = Mappers.getMapper(BookMapper::class.java)
         val book = bookService.findById(id)
