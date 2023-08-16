@@ -1,6 +1,6 @@
 package com.metcs.bookservice.domain.dto.response
 
-import java.util.*
+import java.util.UUID
 
 data class BookResponse(
     val id: UUID,
