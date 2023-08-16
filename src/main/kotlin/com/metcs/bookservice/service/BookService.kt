@@ -17,7 +17,7 @@ class BookService(
     suspend fun getAll(): List<Book> {
         return bookRepository.findAll().toList()
     }
-    suspend fun getById(id: UUID): Book {
+
     suspend fun getAll(page: Int, offset: Int): PaginatedResponse<Book> {
         return bookPaginate(page, bookRepository.findAllBy(PageRequest.of(page, offset)).toList(), offset)
     }

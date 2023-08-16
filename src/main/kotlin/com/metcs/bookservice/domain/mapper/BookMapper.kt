@@ -9,7 +9,6 @@ import org.mapstruct.Mapper
 
 @Mapper
 interface BookMapper {
-    fun createRequestToBook(bookDto: CreateBookRequest): Book
     fun bookToBookResponse(book: Book): BookResponse
     fun booksToBookResponse(books: List<Book>): List<BookResponse>
     fun createRequestToBook(bookDto: CreateBookRequest): Book

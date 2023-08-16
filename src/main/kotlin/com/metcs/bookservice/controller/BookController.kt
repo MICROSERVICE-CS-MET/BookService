@@ -6,6 +6,7 @@ import com.metcs.bookservice.domain.dto.response.BookResponse
 import com.metcs.bookservice.domain.dto.response.PaginatedResponse
 import com.metcs.bookservice.domain.mapper.BookMapper
 import com.metcs.bookservice.service.BookService
+import java.util.UUID
 import org.mapstruct.factory.Mappers
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
 
 @RestController
 @RequestMapping("/books")
@@ -35,9 +35,6 @@ class BookController(
     }
 
     @GetMapping("/{id}")
-    suspend fun getById(@PathVariable("id") id: UUID): BookResponse {
-        val converter = Mappers.getMapper(BookMapper::class.java)
-        val book = bookService.getById(id)
     suspend fun findById(@PathVariable("id") id: UUID): BookResponse {
         val converter = Mappers.getMapper(BookMapper::class.java)
         val book = bookService.findById(id)
