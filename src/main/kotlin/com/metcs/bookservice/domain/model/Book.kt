@@ -2,7 +2,7 @@ package com.metcs.bookservice.domain.model
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
-import java.util.*
+import java.util.UUID
 
 @Table
 data class Book(
